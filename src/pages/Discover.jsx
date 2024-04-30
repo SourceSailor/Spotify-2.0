@@ -1,7 +1,6 @@
 import { Error, Loader, SongCard } from "../components";
 import { genres } from "../assets/constants";
 import { useGetTopChartsQuery } from "../redux/services/shazamCore";
-import { useDispatch, useSElector } from "react-redux";
 
 const Discover = () => {
   const genreTitle = "Pop";
@@ -32,7 +31,7 @@ const Discover = () => {
       </div>
       <div className="flex flex-wrap sm:justify-center justify-start gap-8">
         {data?.map((song, i) => (
-          <SongCard key={song.key} song={song} i={i} />
+          <SongCard key={song.id} song={song} i={i} />
         ))}
       </div>
     </div>
