@@ -1,7 +1,8 @@
 import { Error, Loader, SongCard } from "../components";
 import { genres } from "../assets/constants";
-import { useGetTopChartsQuery } from "../redux/services/shazamCore";
 import { useDispatch, useSelector } from "react-redux";
+import { MusicPlayer } from "../components";
+import { useGetTopChartsQuery } from "../redux/services/shazamCore";
 
 const Discover = () => {
   const genreTitle = "Pop";
@@ -31,18 +32,19 @@ const Discover = () => {
             </option>
           ))}
         </select>
-      </div>
-      <div className="flex flex-wrap sm:justify-center justify-start gap-8">
-        {data?.map((song, i) => (
-          <SongCard
-            key={song.id}
-            song={song}
-            data={data}
-            isPlaying={isPlaying}
-            activeSong={activeSong}
-            i={i}
-          />
-        ))}
+
+        <div className="flex flex-wrap sm:justify-center justify-start gap-8">
+          {data?.map((song, i) => (
+            <SongCard
+              key={song.id}
+              song={song}
+              data={data}
+              isPlaying={isPlaying}
+              activeSong={activeSong}
+              i={i}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
