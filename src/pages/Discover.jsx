@@ -15,7 +15,7 @@ const Discover = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="w-full flex justify-between items-center sm:flex-col flex-row mt-4 mb-10">
+      <div className="w-full md:flex justify-between items-center sm:flex-col flex-row mt-4 mb-10">
         <h2 className="font-bold text-3xl text-white text-left">
           Discover {genreTitle}
         </h2>
@@ -24,7 +24,7 @@ const Discover = () => {
           id=""
           onChange={() => {}}
           value=""
-          className="bg-black text-gray-300 p-3 rounded-lg outline-none sm:mt-5 mt-0"
+          className="bg-black text-gray-300 p-3 rounded-lg outline-none sm:my-5 my-3"
         >
           {genres.map((genre) => (
             <option key={genre.value} value={genre.value}>
@@ -33,7 +33,7 @@ const Discover = () => {
           ))}
         </select>
 
-        <div className="flex flex-wrap sm:justify-center justify-start gap-8">
+        <div className="flex flex-wrap sm:justify-center justify-center gap-8">
           {data?.map((song, i) => (
             <SongCard
               key={song.id}
