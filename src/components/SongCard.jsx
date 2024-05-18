@@ -30,8 +30,8 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
             isPlaying={isPlaying}
             activeSong={activeSong}
             song={song}
-            handlePause={handlePauseClick}
-            handlePlay={handlePlayClick}
+            handlePauseClick={handlePauseClick}
+            handlePlayClick={handlePlayClick}
           />
         </div>
         <img src={song.attributes?.artwork?.url} alt="Song_img" />
