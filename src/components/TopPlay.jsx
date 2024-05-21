@@ -28,7 +28,7 @@ const TopChartCard = ({
         <Link to={`/songs/${song?.id}`}>
           <p className="text-xl font-bold text-white">{song.attributes.name}</p>
         </Link>
-        <Link to={`/artists/song${song?.artistName}`}>
+        <Link to={`/artists/song${song?.attributes?.artistName}`}>
           <p className="text-base font-400 text-gray-300 mt-1">
             {song.attributes.artistName}
           </p>

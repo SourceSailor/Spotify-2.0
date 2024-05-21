@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { HiOutlineMenu } from "react-icons/hi";
 import { RiCloseLine } from "react-icons/ri";
-
+import { Link } from "react-router-dom";
 import { logo } from "../assets";
 import { links } from "../assets/constants";
 
@@ -27,7 +27,10 @@ const Sidebar = () => {
   return (
     <>
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#191624]">
-        <img className="w-full h-14 object-contain" src={logo} alt="logo" />
+        <Link to={"/"}>
+          <img className="w-full h-14 object-contain" src={logo} alt="logo" />
+        </Link>
+
         <NavLinks />
       </div>
 
