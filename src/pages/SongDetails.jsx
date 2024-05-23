@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetSongDetailsQuery } from "../redux/services/shazamCore";
+import { DetailsHeader } from "../components";
 
 const SongDetails = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const SongDetails = () => {
     isError,
     error,
   } = useGetSongDetailsQuery(songid);
+  console.log("Song Data From Song Details: ", songData);
 
   const [lyricId, setLyricId] = useState(null);
 
@@ -30,12 +32,9 @@ const SongDetails = () => {
     ? songData?.resources?.lyrics[lyricId]?.attributes?.text
     : null;
 
-  console.log("Lyric ID: ", lyricId);
-  console.log("Lyric Text: ", songLyrics);
-  console.log("Song id from API: ", songid);
-
   return (
     <div className="flex flex-col">
+      <DetailsHeader artistId="" songData={songData} />
       <div className="mb-10">
         <h2 className="text-white text-3xl font-bold">Lyrics</h2>
         <div className="mt-5">
