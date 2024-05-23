@@ -7,7 +7,6 @@ const SongDetails = () => {
   const dispatch = useDispatch();
   const { songid } = useParams();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
-  const [lyricId, setLyricId] = useState(null);
 
   const {
     data: songData,
@@ -16,37 +15,38 @@ const SongDetails = () => {
     error,
   } = useGetSongDetailsQuery(songid);
 
+  const [lyricId, setLyricId] = useState(null);
+
   useEffect(() => {
     if (songData?.resources?.lyrics) {
-      const lyricKeys = Object.keys(songData.resources.lyrics);
-      if (lyricKeys.length > 0) {
-        setLyricId(lyricKeys);
+      const lyricKey = Object.keys(songData.resources.lyrics);
+      if (lyricKey.length > 0) {
+        setLyricId(lyricKey[0]);
       }
     }
-  }, [songData]);
+  });
 
-  console.log("Lyric ID: ", lyricId);
-  console.log("Song id from API: ", songid);
-
-  const lyrics = lyricId
+  const songLyrics = lyricId
     ? songData?.resources?.lyrics[lyricId]?.attributes?.text
     : null;
+
+  console.log("Lyric ID: ", lyricId);
+  console.log("Lyric Text: ", songLyrics);
+  console.log("Song id from API: ", songid);
 
   return (
     <div className="flex flex-col">
       <div className="mb-10">
         <h2 className="text-white text-3xl font-bold">Lyrics</h2>
         <div className="mt-5">
-          {lyrics ? (
-            lyrics.map((line, i) => (
-              <p key={i} className="text-gray-400 text-base my-1">
+          {songLyrics ? (
+            songLyrics.map((line, i) => (
+              <p key={i} className="text-white">
                 {line}
               </p>
             ))
           ) : (
-            <p className="text-gray-400 text-base my-1">
-              Sorry, no lyrics found!
-            </p>
+            <p className="text-white">No Lyrics Found</p>
           )}
         </div>
       </div>
