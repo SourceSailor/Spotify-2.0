@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetSongDetailsQuery } from "../redux/services/shazamCore";
-import { DetailsHeader } from "../components";
+import { DetailsHeader, RelatedSongs } from "../components";
 
 const SongDetails = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const SongDetails = () => {
   return (
     <div className="flex flex-col">
       <DetailsHeader artistId="" songData={songData} />
-      <div className="mb-10">
+      <div className="mb-10 mt-5 ">
         <h2 className="text-white text-3xl font-bold">Lyrics</h2>
         <div className="mt-5">
           {songLyrics ? (
@@ -50,6 +50,7 @@ const SongDetails = () => {
           )}
         </div>
       </div>
+      <RelatedSongs />
     </div>
   );
 };
