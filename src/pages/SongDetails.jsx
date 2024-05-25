@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetSongDetailsQuery } from "../redux/services/shazamCore";
@@ -7,6 +8,7 @@ import { DetailsHeader } from "../components";
 const SongDetails = () => {
   const dispatch = useDispatch();
   const { songid } = useParams();
+  const [lyricId, setLyricId] = useState(null);
   const { activeSong, isPlaying } = useSelector((state) => state.player);
 
   const {
@@ -15,9 +17,6 @@ const SongDetails = () => {
     isError,
     error,
   } = useGetSongDetailsQuery(songid);
-  console.log("Song Data From Song Details: ", songData);
-
-  const [lyricId, setLyricId] = useState(null);
 
   useEffect(() => {
     if (songData?.resources?.lyrics) {
@@ -26,11 +25,13 @@ const SongDetails = () => {
         setLyricId(lyricKey[0]);
       }
     }
-  });
+  }, [songData]);
 
   const songLyrics = lyricId
     ? songData?.resources?.lyrics[lyricId]?.attributes?.text
     : null;
+
+  console.log("Song Details Component Song Data: ", songData);
 
   return (
     <div className="flex flex-col">

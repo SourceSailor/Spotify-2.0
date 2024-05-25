@@ -19,6 +19,12 @@ export const shazamCoreApi = createApi({
         params: { country_code: "DZ" },
       }),
     }),
+    getSongDetailsData: builder.query({
+      query: (songid) => ({
+        url: "/v1/tracks/details",
+        params: { track_id: songid },
+      }),
+    }),
     getSongDetails: builder.query({
       query: (songid) => ({
         url: `/v2/tracks/details`, // Use v2 path
@@ -28,4 +34,8 @@ export const shazamCoreApi = createApi({
   }),
 });
 
-export const { useGetTopChartsQuery, useGetSongDetailsQuery } = shazamCoreApi;
+export const {
+  useGetTopChartsQuery,
+  useGetSongDetailsQuery,
+  useGetSongDetailsDataQuery,
+} = shazamCoreApi;

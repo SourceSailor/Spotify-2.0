@@ -10,6 +10,8 @@ const Discover = () => {
   const { data, isFetching, error } = useGetTopChartsQuery();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
 
+  // console.log("Discover Component Data from API: ", data);
+
   if (isFetching) return <Loader title="Loading Songs..." />;
   if (error) return <Error />;
 
