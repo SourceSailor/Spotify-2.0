@@ -31,6 +31,12 @@ export const shazamCoreApi = createApi({
         params: { track_id: songid },
       }),
     }),
+    getRelatedSongs: builder.query({
+      query: (songid) => ({
+        url: "/v1/tracks/related",
+        params: { track_id: songid },
+      }),
+    }),
   }),
 });
 
@@ -38,4 +44,5 @@ export const {
   useGetTopChartsQuery,
   useGetSongDetailsQuery,
   useGetSongDetailsDataQuery,
+  useGetRelatedSongsQuery,
 } = shazamCoreApi;

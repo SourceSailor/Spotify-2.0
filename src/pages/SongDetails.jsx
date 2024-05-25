@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetSongDetailsQuery } from "../redux/services/shazamCore";
-import { DetailsHeader, RelatedSongs } from "../components";
+import { DetailsHeader, RelatedSongs, Loader, Error } from "../components";
+import {
+  useGetSongDetailsQuery,
+  useGetRelatedSongsQuery,
+} from "../redux/services/shazamCore";
 
 const SongDetails = () => {
   const dispatch = useDispatch();
@@ -11,12 +13,24 @@ const SongDetails = () => {
   const [lyricId, setLyricId] = useState(null);
   const { activeSong, isPlaying } = useSelector((state) => state.player);
 
+  // Song Details Data From API
   const {
     data: songData,
-    isFetching,
-    isError,
-    error,
-  } = useGetSongDetailsQuery(songid);
+    isFetching: isFetchingSongDetails,
+    error: songDetailsError,
+  } = useGetSongDetailsQuery(songid, {
+    retry: 3, // Retry up to 3 times in case of failure
+  });
+
+  // Related Songs Data From API
+  const {
+    data,
+    isFetching: isFetchingRelatedSongs,
+    error: relatedSongsError,
+  } = useGetRelatedSongsQuery(songData?.data[0]?.id, {
+    skip: !songData?.data[0]?.id, // Skip query if songData ID is not available
+    retry: 3, // Retry up to 3 times in case of failure
+  });
 
   useEffect(() => {
     if (songData?.resources?.lyrics) {
@@ -27,16 +41,38 @@ const SongDetails = () => {
     }
   }, [songData]);
 
+  const handlePauseClick = () => {
+    dispatch(playPause(false));
+  };
+
+  const handlePlayClick = (song, i) => {
+    dispatch(setActiveSong({ song, data, i }));
+    dispatch(playPause(true));
+  };
+
+  // Variable Holding The Song Lyric ID
   const songLyrics = lyricId
     ? songData?.resources?.lyrics[lyricId]?.attributes?.text
     : null;
 
-  console.log("Song Details Component Song Data: ", songData);
+  // Render loading or error state if needed
+  if (isFetchingRelatedSongs || isFetchingSongDetails) {
+    return <Loader title="Searching Song Details" />;
+  }
+  if (songDetailsError || relatedSongsError) {
+    return (
+      <Error
+        message={`Error fetching song details: ${
+          songDetailsError?.message || relatedSongsError?.message
+        }`}
+      />
+    );
+  }
 
   return (
     <div className="flex flex-col">
       <DetailsHeader artistId="" songData={songData} />
-      <div className="mb-10 mt-5 ">
+      <div className="mb-10">
         <h2 className="text-white text-3xl font-bold">Lyrics</h2>
         <div className="mt-5">
           {songLyrics ? (
@@ -50,7 +86,13 @@ const SongDetails = () => {
           )}
         </div>
       </div>
-      <RelatedSongs />
+      <RelatedSongs
+        data={data}
+        isPlaying={isPlaying}
+        activeSong={activeSong}
+        handlePauseClick={handlePauseClick}
+        handlePlayClick={handlePlayClick}
+      />
     </div>
   );
 };

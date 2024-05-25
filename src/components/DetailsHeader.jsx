@@ -33,7 +33,7 @@ const DetailsHeader = ({ artistId, artistData, songData }) => {
     "Song Data Being Fetched From API From Details Header: ",
     songDetailsData
   );
-  console.log("Song Data From Details Header: ", songData);
+  console.log("Song Data From Details Header: ", songDetailsData);
 
   return (
     <div className="relative w-full flex flex-col">
@@ -66,7 +66,7 @@ const DetailsHeader = ({ artistId, artistData, songData }) => {
           </p>
         </div>
       </div>
-      <div className="w-full sm:h-44 h-24" />
+      <div className="w-full sm:h-4 h-24" />
     </div>
   );
 };
