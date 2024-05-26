@@ -22,6 +22,8 @@ const SongDetails = () => {
     retry: 3, // Retry up to 3 times in case of failure
   });
 
+  console.log("Song Data V1 From Song Details Component: ", songData);
+
   // Related Songs Data From API
   const {
     data,
@@ -31,6 +33,10 @@ const SongDetails = () => {
     skip: !songData?.data[0]?.id, // Skip query if songData ID is not available
     retry: 3, // Retry up to 3 times in case of failure
   });
+  console.log(
+    "Related Songs Data Using V2 From Song Details Component: ",
+    data
+  );
 
   useEffect(() => {
     if (songData?.resources?.lyrics) {
@@ -87,6 +93,7 @@ const SongDetails = () => {
         </div>
       </div>
       <RelatedSongs
+        songData={songData}
         data={data}
         isPlaying={isPlaying}
         activeSong={activeSong}

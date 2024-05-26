@@ -2,21 +2,6 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useGetSongDetailsDataQuery } from "../redux/services/shazamCore";
 
-// const [currentArtistId, setCurrentArtistId] = useState(null);
-
-// useEffect(() => {
-//   if (songData?.resources?.artists) {
-//     const artistKey = Object.keys(songData.resources.artists);
-//     if (artistKey.length > 0) {
-//       setCurrentArtistId(artistKey[0]);
-//     }
-//   }
-// }, [songData]);
-
-// const artworkUrl = currentArtistId
-//   ? fetchArtistData?.[currentArtistId]?.attributes?.artwork?.url
-//   : null;
-
 const DetailsHeader = ({ artistId, artistData, songData }) => {
   const {
     data: songDetailsData,

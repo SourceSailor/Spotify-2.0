@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 const stylisticJs = require("@stylistic/eslint-plugin-js");
 
 module.exports = {
@@ -16,7 +17,8 @@ module.exports = {
   plugins: ["react", "@stylistic/js"],
   rules: {
     "@stylistic/js/indent": ["error", 2],
-    quotes: ["error", "single"], // enforce single quotes for all code
+    quotes: 0,
+
     "jsx-quotes": ["error", "prefer-single"], // enforce single quotes for JSX attributes
     "prettier/prettier": ["error", { singleQuote: true }],
 
@@ -28,6 +30,7 @@ module.exports = {
     "import/extensions": 0,
     "react/prop-types": 0,
     "linebreak-style": 0,
+    "eslint-disable-next-line": 0,
     "react/state-in-constructor": 0,
     "import/prefer-default-export": 0,
     "no-multiple-empty-lines": [
