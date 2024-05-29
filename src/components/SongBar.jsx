@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PlayPause from "./PlayPause";
+import { useGetSongDetailsDataQuery } from "../redux/services/shazamCore";
 
 const SongBar = ({
   song,
   songData,
-  key,
   i,
   artistId,
   isPlaying,
@@ -13,10 +13,15 @@ const SongBar = ({
   handlePauseClick,
   handlePlayClick,
 }) => {
-  console.log(
-    "Song Data Being Passed Through To Sound Bar Component: ",
-    songData
-  );
+  const { data: songBarSongData, error, isLoading } = useGetSongDetailsDataQuery(song.key, {
+    retry: 3, // Retry up to 3 times in case of failure
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading song details.</p>;
+
+  console.log("Song Being Passed Through To Sound Bar Component: ", songBarSongData);
+
   return (
     <div
       className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${
@@ -38,7 +43,7 @@ const SongBar = ({
         />
         <div className="flex-1 flex flex-col justify-center mx-3">
           {!artistId ? (
-            <Link to={`/songs/${song.key}`}>
+            <Link to={`/songs/${songBarSongData?.trackadamid}`}>
               <p className="text-xl font-bold text-white">{song?.title}</p>
             </Link>
           ) : (
@@ -51,7 +56,7 @@ const SongBar = ({
           </p>
         </div>
       </div>
-      {!artistId ? (
+      {!artistId && (
         <PlayPause
           song={song}
           isPlaying={isPlaying}
@@ -59,7 +64,7 @@ const SongBar = ({
           handlePause={handlePauseClick}
           handlePlay={() => handlePlayClick(song, i)}
         />
-      ) : null}
+      )}
     </div>
   );
 };
