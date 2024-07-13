@@ -8,7 +8,9 @@ const DetailsHeader = ({ artistId, artistData, songData }) => {
     isFetching,
     isError,
     error,
-  } = useGetSongDetailsDataQuery(songData?.data[0]?.id);
+  } = useGetSongDetailsDataQuery(songData?.data[0]?.id, {
+    retry: 3, // Retry up to 3 times in case of failure
+  })
 
   const fetchArtistData = songData?.resources?.artists;
   const artworkImageUrl = songDetailsData?.images?.coverart;

@@ -27,6 +27,7 @@ export const shazamCoreApi = createApi({
     }),
     getSongDetails: builder.query({
       query: (songid) => ({
+        // eslint-disable-next-line quotes
         url: `/v2/tracks/details`, // Use v2 path
         params: { track_id: songid },
       }),

@@ -17,6 +17,7 @@ const TopChartCard = ({
   handlePlayClick,
   activeSong,
 }) => (
+
   <div className="w-full flex flex-row items-center hover:bg-[#4c426e] py-2 p-4 rounded-lg cursor-pointer mb-2">
     <h3 className="flex flex-row items-center text-white mr-4">{i + 1}.</h3>
     <div className="flex-1 flex flex-row justify-between items-center">
